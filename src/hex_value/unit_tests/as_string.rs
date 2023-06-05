@@ -13,7 +13,7 @@ fn renders_as_expected() {
             HexValue::U128(value) => value,
         };
 
-        let expected_res = format!("{:x}", value);
+        let expected_res = format!("{value:x}");
 
         /* When */
         let res = hex_value.as_string();
