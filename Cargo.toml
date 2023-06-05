@@ -12,9 +12,7 @@ version = "0.1.0"
 
 [dependencies]
 bool_ext = "0.5.3"
-he_std = { git = "ssh://github/u007d/he_std.git", branch = "main" }
 num-traits = "0.2.15"
-regex = "1.8.3"
 thiserror = "1.0.40"
 
 [dev-dependencies]
@@ -23,6 +21,7 @@ assert2 = "0.3.11"
 proptest = { version = "1.2.0", default-features = false, features = [
     "default-code-coverage",
 ] }
+regex = "1.8.3"
 
 [profile.dev]
 codegen-units = 1
