@@ -1,4 +1,5 @@
 pub mod io;
+pub mod parse;
 
 use crate::shared_consts::*;
 use thiserror::Error;
@@ -11,4 +12,6 @@ pub type Result<T, E = Error> = std::result::Result<T, E>;
 pub enum Error {
     #[error("{}: {:?}: ", msg::ERR_IO, 0)]
     IoError(#[from] io::Error),
+    #[error(transparent)]
+    ParseError(#[from] parse::Error),
 }

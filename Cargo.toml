@@ -7,15 +7,22 @@ keywords = []
 license = "MIT OR Apache-2.0"
 name = "hex_value"
 readme = "README.md"
-repository = "https://github.com/u007d/hex_value"
+repository = "https://github.com/u007d/address_value"
 version = "0.1.0"
 
 [dependencies]
+bool_ext = "0.5.3"
 he_std = { git = "ssh://github/u007d/he_std.git", branch = "main" }
+num-traits = "0.2.15"
+regex = "1.8.3"
 thiserror = "1.0.40"
 
 [dev-dependencies]
 assert2 = "0.3.11"
+# Compile `proptest` such that it will not break code coverage measurements
+proptest = { version = "1.2.0", default-features = false, features = [
+    "default-code-coverage",
+] }
 
 [profile.dev]
 codegen-units = 1
@@ -42,3 +49,48 @@ debug-assertions = true
 lto = false
 opt-level = 0
 rpath = false
+
+[lints.rust]
+# To use the `unsafe` keyword, do not remove the `unsafe_code = "forbid"` entry.
+# Instead, prefer to change it to `unsafe_code = "deny"` + opt-in with local use of
+# `#[allow(unsafe_code)]`'s on an as needed basis.
+unsafe_code = "forbid"
+bare_trait_objects = "forbid"
+
+rust_2018_idioms = "warn"
+
+# Uncomment before ship to reconcile use of possibly redundant crates, debug remnants, missing
+# license files and more
+#missing_docs = "warn"
+#warnings = "deny"
+
+[lints.clippy]
+# Safety-critical application lints
+pedantic = { level = "deny", priority = -1 }
+float_cmp_const = "deny"
+indexing_slicing = "deny"
+arithmetic_side_effects = "deny"
+unwrap_used = "deny"
+
+all = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+# End of safety-critical application lints
+
+enum_glob_use = "allow"
+enum_variant_names = "allow"
+equatable_if_let = "allow"
+implicit_return = "allow"
+iter_nth_zero = "allow"
+match_bool = "allow"
+missing_errors_doc = "allow"
+module_name_repetitions = "allow"
+obfuscated_if_else = "allow"
+similar_names = "allow"
+wildcard_imports = "allow"
+
+# Uncomment before ship to reconcile use of possibly redundant crates, debug remnants, missing
+# license files and more
+#blanket_clippy_restriction_lints = "allow"
+#implicit_return = "allow"
+#cargo = "warn"
+#restriction = "warn"
