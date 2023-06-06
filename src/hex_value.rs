@@ -61,8 +61,8 @@ impl HexValue {
                 }));
                 acc
             })
-            + ":"
-            + &self.width_bits().to_string()
+        + ":"
+        + &self.width_bits().to_string()
     }
 
     /// Print the address as an unformatted string of decimal digits.

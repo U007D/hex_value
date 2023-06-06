@@ -1,8 +1,9 @@
 pub mod io;
 pub mod parse;
 
-use crate::shared_consts::*;
 use thiserror::Error;
+
+use crate::shared_consts::*;
 
 #[allow(dead_code)]
 pub type Result<T, E = Error> = std::result::Result<T, E>;
