@@ -9,7 +9,7 @@ use bool_ext::BoolExt;
 
 use crate::{error::parse::Error, shared_consts::*};
 
-/// Enum representing a hexadecimal value, preserving the input value's width.
+/// `HexValue` represents a hexadecimal value, preserving the input value's width.
 /// `HexValue` may be used wherever hexadecimal representation is required.
 /// One use is as a host machine's typed representation of a memory address on a remote machine,
 /// such as a flash memory base address on a connected embedded device.
@@ -22,7 +22,7 @@ pub enum HexValue {
 }
 
 impl HexValue {
-    /// Returns the address value.
+    /// Returns the value value.
     #[must_use]
     pub fn value(&self) -> u128 {
         match self {
@@ -33,11 +33,11 @@ impl HexValue {
         }
     }
 
-    /// Print the address as an unformatted hexadecimal string.
+    /// Print the value as an unformatted hexadecimal string.
     #[must_use]
     pub fn as_string(&self) -> String { format!("{:x}", self.value()) }
 
-    /// Pretty print the address as a hexadecimal string with underscores and leading zeros followed
+    /// Pretty print the value as a hexadecimal string with underscores and leading zeros followed
     /// by its width in bits.
     #[allow(clippy::assertions_on_constants)]
     #[must_use]
@@ -65,11 +65,11 @@ impl HexValue {
         + &self.width_bits().to_string()
     }
 
-    /// Print the address as an unformatted string of decimal digits.
+    /// Print the value as an unformatted string of decimal digits.
     #[must_use]
     pub fn as_decimal_string(&self) -> String { self.value().to_string() }
 
-    /// Print the address as a formatted string of hex digits with leading zeros padding to the full
+    /// Print the value as a formatted string of hex digits with leading zeros padding to the full
     /// address width.
     #[must_use]
     pub fn as_padded_string(&self) -> String {
@@ -81,7 +81,7 @@ impl HexValue {
                                                          digits in `Address` overflowed `usize`.")))
     }
 
-    /// Returns the width of the address value in bytes.
+    /// Returns the width of the value value in bytes.
     #[must_use]
     pub const fn width_bytes(&self) -> usize {
         match self {
@@ -92,7 +92,7 @@ impl HexValue {
         }
     }
 
-    /// Returns the width of the address value in bits.
+    /// Returns the width of the value value in bits.
     #[must_use]
     pub const fn width_bits(&self) -> usize {
         self.width_bytes()

@@ -1,4 +1,9 @@
 # hex_value
+`hex_value` is a crate defining a type designed to represent a hexadecimal value, preserving the 
+input value's width.  `HexValue` may be used wherever hexadecimal representation is required.
+
+One use is as a host machine's typed representation of a memory address on a remote machine,
+such as a flash memory base address on a connected embedded device.
 
 ## License
 Licensed under either:
