@@ -9,6 +9,7 @@ mod as_decimal_string;
 mod as_pretty_string;
 mod as_string;
 mod display;
+mod from_str;
 mod try_from;
 mod value_and_width_bits_and_width_bytes;
 

@@ -3,7 +3,8 @@ mod unit_tests;
 
 use std::{fmt::{Display, Formatter, Result as FmtResult},
           mem::size_of,
-          ops::Not};
+          ops::Not,
+          str::FromStr};
 
 use bool_ext::BoolExt;
 
@@ -118,6 +119,12 @@ impl From<u128> for HexValue {
     fn from(value: u128) -> Self { Self::U128(value) }
 }
 
+impl FromStr for HexValue {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> { s.try_into() }
+}
+
 impl Display for HexValue {
     #[allow(clippy::assertions_on_constants)]
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
@@ -129,7 +136,7 @@ impl Display for HexValue {
 }
 
 impl TryFrom<&str> for HexValue {
-    type Error = Error;
+    type Error = <Self as FromStr>::Err;
 
     /// Attempts to parse a string containing hexadecimal characters into a `Value`.  The input may
     /// optionally be prefixed with `0x` and may contain `_` separators.
