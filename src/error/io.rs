@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod unit_tests;
+
 mod wrapped_std_io;
 
 use thiserror::Error;
