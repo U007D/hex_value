@@ -23,20 +23,21 @@ pub enum HexValue {
 }
 
 impl HexValue {
-    /// Returns the value value.
+    /// Print the value as an unformatted string of decimal digits.
     #[must_use]
-    pub fn value(&self) -> u128 {
-        match self {
-            Self::U16(value) => u128::from(*value),
-            Self::U32(value) => u128::from(*value),
-            Self::U64(value) => u128::from(*value),
-            Self::U128(value) => *value,
-        }
-    }
+    pub fn as_decimal_string(&self) -> String { self.value().to_string() }
 
-    /// Print the value as an unformatted hexadecimal string.
+    /// Print the value as a formatted string of hex digits with leading zeros padding to the full
+    /// address width.
     #[must_use]
-    pub fn as_string(&self) -> String { format!("{:x}", self.value()) }
+    pub fn as_padded_string(&self) -> String {
+        format!("{:0width$x}",
+                self.value(),
+                width = self.width_bytes()
+                            .checked_mul(HEX_DIGITS_PER_BYTE)
+                            .unwrap_or_else(|| unreachable!("Internal Error: Number of hexadecimal \
+                                                         digits in `Address` overflowed `usize`.")))
+    }
 
     /// Pretty print the value as a hexadecimal string with underscores and leading zeros followed
     /// by its width in bits.
@@ -66,20 +67,19 @@ impl HexValue {
         + &self.width_bits().to_string()
     }
 
-    /// Print the value as an unformatted string of decimal digits.
+    /// Print the value as an unformatted hexadecimal string.
     #[must_use]
-    pub fn as_decimal_string(&self) -> String { self.value().to_string() }
+    pub fn as_string(&self) -> String { format!("{:x}", self.value()) }
 
-    /// Print the value as a formatted string of hex digits with leading zeros padding to the full
-    /// address width.
+    /// Returns the value value.
     #[must_use]
-    pub fn as_padded_string(&self) -> String {
-        format!("{:0width$x}",
-                self.value(),
-                width = self.width_bytes()
-                            .checked_mul(HEX_DIGITS_PER_BYTE)
-                            .unwrap_or_else(|| unreachable!("Internal Error: Number of hexadecimal \
-                                                         digits in `Address` overflowed `usize`.")))
+    pub fn value(&self) -> u128 {
+        match self {
+            Self::U16(value) => u128::from(*value),
+            Self::U32(value) => u128::from(*value),
+            Self::U64(value) => u128::from(*value),
+            Self::U128(value) => *value,
+        }
     }
 
     /// Returns the width of the value value in bytes.
