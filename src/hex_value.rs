@@ -23,6 +23,8 @@ pub enum HexValue {
 }
 
 impl HexValue {
+    // Looking for Constructors?  See `From<u*>`, `FromStr` and `TryFrom` impls below.
+
     /// Print the value as an unformatted string of decimal digits.
     #[must_use]
     pub fn as_decimal_string(&self) -> String { self.value().to_string() }
